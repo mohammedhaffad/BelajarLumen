@@ -10,7 +10,7 @@ class CategoryRepository  implements ICategoryRepository
 
     public function getCategories($request)
     {
-        $categories = Category::all();
+        $categories = Category::with('books')->get();
         $code = isset($request->code) ? $request->code : null;
         if ($code != null) {
             $categories = $categories->where('code', $code);
@@ -20,7 +20,7 @@ class CategoryRepository  implements ICategoryRepository
 
     public function getCategoryDetail($id)
     {
-        $categories = Category::find($id);
+        $categories = Category::with('books')->find($id);
         $categories = isset($categories) ? $categories : $categories;
         return $categories;
     }
