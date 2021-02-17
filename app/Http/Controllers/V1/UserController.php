@@ -22,11 +22,25 @@ class UserController extends Controller
         return response()->json(compact('token'));
     }
 
+    public function register(Request $request) {
+        $token = $this->userRepo->Register($request);
+
+        return response()->json(compact('token'));
+    }
+
+    public function logout() {
+        $logout = $this->userRepo->Logout();
+
+        return response()->json(compact('logout'));
+    }
+
     public function profile() {
         $profile = $this->userRepo->Profile();
         
         return response()->json($profile);
     }
+
+
 
     // public function register(Request $request)
     // {

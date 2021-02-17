@@ -34,6 +34,8 @@ $router->group(['namespace' => 'V1', 'prefix' => 'books'], function () use ($rou
 
 $router->group(['namespace' => 'V1', 'prefix' => 'user'], function () use ($router) {
     $router->post('/login', 'UserController@login');
+    $router->post('/register', 'UserController@register');
+    $router->get('/logout', 'UserController@logout');
     $router->get('/profile', 'UserController@profile');
 });
 

@@ -44,7 +44,10 @@ class AuthRepository implements IAuthRepository {
         $token = JWTAuth::getToken();
         if ($token) {
             JWTAuth::setToken($token)->invalidate();
+
+            return true;
         }
+        return;
     }
 
     public function Profile()
