@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function __construct(ICategoryRepository $categoryRepo)
     {
         $this->categoryRepo = $categoryRepo;
-        $this->middleware('auth', ['except' => ['index', 'detailCategory']]);
+        $this->middleware('authrole', ['except' => ['index', 'detailCategory']]);
     }
 
     public function index(Request $request)

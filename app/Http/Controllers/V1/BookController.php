@@ -13,7 +13,7 @@ class BookController extends Controller
     public function __construct(IBookRepository $bookRepo)
     {
         $this->bookRepo = $bookRepo;
-        $this->middleware('auth', ['except' => ['getBooksbyCat', 'getAllBooks', 'getBookById']]);
+        $this->middleware('authrole', ['except' => ['getBooksbyCat', 'getAllBooks', 'getBookById']]);
     }
 
     public function getBooksbyCat($catid)
