@@ -3,9 +3,9 @@
 namespace App\Repositories\User;
 
 interface IUserRepository {
-    public function addUser($request);
-    public function updateUser($id, $request);
-    public function deleteUser($id);
+    public function Register($request);
+    public function Profile();
+    public function AddBook($id); 
 }
 
 ?>

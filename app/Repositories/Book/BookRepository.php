@@ -28,9 +28,9 @@ class BookRepository implements IBookRepository
         }
         return $book;
     }
-    public function createBook($request, $catid)
+    public function createBook($request)
     {
-        $category = Category::find($catid);
+        $category = Category::find($request->catid);
         if (!$category) {
             return;
         }

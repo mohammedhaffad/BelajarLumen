@@ -43,9 +43,9 @@ class BookController extends Controller
         ]);
     }
 
-    public function createBook(Request $request, $catid)
+    public function createBook(Request $request)
     {
-        $books = $this->bookRepo->createBook($request, $catid);
+        $books = $this->bookRepo->createBook($request);
 
         return response()->json([
             "data" => $books

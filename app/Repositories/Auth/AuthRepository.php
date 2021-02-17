@@ -22,23 +22,6 @@ class AuthRepository implements IAuthRepository {
         return $token;
     }
 
-    public function Register($request)
-    {
-        try {
-            $user = new User;
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $plainPassword = $request->password;
-            $user->password = app('hash')->make($plainPassword);
-
-            $user->save();
-            $token = JWTAuth::fromUser($user);
-            return $token;
-        } catch (\Exception $e) {
-            return;
-        }
-    }
-
     public function Logout()
     {
         $token = JWTAuth::getToken();
@@ -48,11 +31,5 @@ class AuthRepository implements IAuthRepository {
             return true;
         }
         return;
-    }
-
-    public function Profile()
-    {
-        $profile = auth()->user();
-        return $profile;
     }
 }

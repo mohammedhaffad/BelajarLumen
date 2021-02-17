@@ -3,69 +3,36 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Auth\IAuthRepository;
+use App\Repositories\User\IUserRepository;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     protected $userRepo;
 
-    public function __construct(IAuthRepository $userRepo)
+    public function __construct(IUserRepository $userRepo)
     {
         $this->userRepo = $userRepo;
-        $this->middleware('auth', ['except' => ['login']]);
+        $this->middleware('auth', ['except' => ['register']]);
     }
 
-    public function login(Request $request) {
-        $token =  $this->userRepo->Login($request);
+    public function register(Request $request)
+    {
+        $user = $this->userRepo->Register($request);
 
-        return response()->json(compact('token'));
-    }
-
-    public function register(Request $request) {
-        $token = $this->userRepo->Register($request);
-
-        return response()->json(compact('token'));
-    }
-
-    public function logout() {
-        $logout = $this->userRepo->Logout();
-
-        return response()->json(compact('logout'));
+        return response()->json(compact('user'));
     }
 
     public function profile() {
-        $profile = $this->userRepo->Profile();
-        
-        return response()->json($profile);
+        $user = $this->userRepo->Profile();
+
+        return response()->json(compact('user'));
     }
 
+    public function addbook($id) {
+        $book = $this->userRepo->AddBook($id);
 
+        return response()->json(compact('book'));
+    }
 
-    // public function register(Request $request)
-    // {
-    //     $user = $this->userRepo->addUser($request);
-
-    //     return response()->json([
-    //         "data" => $user
-    //     ]);
-    // }
-
-    // public function update($id, Request $request)
-    // {
-    //     $user =  $this->userRepo->updateUser($id, $request);
-
-    //     return response()->json([
-    //         "data" => $user
-    //     ]);
-    // }
-
-    // public function delete($id)
-    // {
-    //     $user = $this->userRepo->deleteUser($id);
-
-    //     return response()->json([
-    //         "data" => $user
-    //     ]);
-    // }
 }

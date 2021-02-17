@@ -27,16 +27,20 @@ $router->group(['namespace' => 'V1', 'prefix' => 'books'], function () use ($rou
     $router->get('/', 'BookController@getAllBooks');
     $router->get('/cat/{catid}', 'BookController@getBooksbyCat');
     $router->get('/{id}', 'BookController@getBookById');
-    $router->post('/{catid}', 'BookController@createBook');
+    $router->post('/', 'BookController@createBook');
     $router->put('/{id}', 'BookController@updateBook');
     $router->delete('/{id}', 'BookController@deleteBook');
 });
 
+$router->group(['namespace' => 'V1', 'prefix' => 'auth'], function () use ($router) {
+    $router->post('/login', 'AuthController@login');
+    $router->get('/logout', 'AuthController@logout');
+});
+
 $router->group(['namespace' => 'V1', 'prefix' => 'user'], function () use ($router) {
-    $router->post('/login', 'UserController@login');
     $router->post('/register', 'UserController@register');
-    $router->get('/logout', 'UserController@logout');
     $router->get('/profile', 'UserController@profile');
+    $router->get('/addBook/{id}', 'UserController@addbook');    
 });
 
 // $router->group(['namespace' => 'V1', 'prefix' => 'user'], function () use ($router) {

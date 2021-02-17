@@ -4,12 +4,13 @@ namespace App\Repositories\User;
 
 use App\Models\User;
 use App\Repositories\User\IUserRepository;
-
+use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Models\Book;
 // use Illuminate\Support\Facades\Auth;
 
 class UserRepository implements IUserRepository
 {
-    public function addUser($request)
+    public function Register($request)
     {
         try {
             $user = new User;
@@ -19,36 +20,28 @@ class UserRepository implements IUserRepository
             $user->password = app('hash')->make($plainPassword);
 
             $user->save();
-            return $user;
+            $token = JWTAuth::fromUser($user);
+            return $token;
         } catch (\Exception $e) {
-            return $user;
+            return;
         }
     }
 
-    public function updateUser($id, $request)
+    public function Profile()
     {
-        $user = User::find($id);
-        if (!$user) {
-            return $user;
-        }
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $plainPassword = $request->password;
-        $user->password = app('hash')->make($plainPassword);
-
-        $user->save();
-        return $user;
+        $profile_id = auth()->user()->id;
+        $profile = User::with('books')->find($profile_id);
+        return $profile;
     }
 
-    public function deleteUser($id)
+    public function AddBook($id)
     {
-        $user = User::find($id);
-        if (!$user) {
-            return false;
+        $book = Book::find($id);
+        if ($book->user_id === null) {
+            $book->user_id = auth()->user()->id;
+            $book->save();
+            return $book;
         }
-
-        $user->delete();
-
-        return true;
+        return;
     }
 }
