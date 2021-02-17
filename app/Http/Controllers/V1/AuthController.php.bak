@@ -16,7 +16,7 @@ class AuthController extends Controller
     }
 
     public function auth(Request $request) {
-        $token = $this->authRepo->Auth($request);
+        $token = $this->authRepo->Login($request);
 
         return $this->respondWithToken($token);
     }

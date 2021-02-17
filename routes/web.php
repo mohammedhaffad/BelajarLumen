@@ -33,10 +33,15 @@ $router->group(['namespace' => 'V1', 'prefix' => 'books'], function () use ($rou
 });
 
 $router->group(['namespace' => 'V1', 'prefix' => 'user'], function () use ($router) {
-    $router->post('/auth', 'AuthController@auth');
-    $router->post('/register', 'UserController@register');
-    $router->put('/update/{id}', 'UserController@update');
-    $router->delete('/delete/{id}', 'UserController@delete');
+    $router->post('/login', 'UserController@login');
+    $router->get('/profile', 'UserController@profile');
 });
+
+// $router->group(['namespace' => 'V1', 'prefix' => 'user'], function () use ($router) {
+//     $router->post('/auth', 'AuthController@auth');
+//     $router->post('/register', 'UserController@register');
+//     $router->put('/update/{id}', 'UserController@update');
+//     $router->delete('/delete/{id}', 'UserController@delete');
+// });
 
 
